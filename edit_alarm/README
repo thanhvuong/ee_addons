@@ -1,0 +1,81 @@
+EDIT ALARM README
+
+
+REQUIREMENTS:
+EE 2.x
+
+
+IMPORTANT NOTES:
+This extension was developed during the releases of EE 2.1.1 and 2.1.2. Both version have bugs affecting
+this plugin. If you haven't patched up or upgraded, you must read the following:
+
+If you are using EE 2.1.1, please upgrade. There is a bug with
+the entry_submission_absolute_end hook.
+
+If you are using EE 2.1.2, please apply the following bugfix to (or upgrade to EE 2.1.3):
+./system/expressionengine/controllers/cp/content_publish.php on line 1090
+
+Find this:
+$result = $this->extensions->call('publish_form_entry_data', $result->row_array());
+
+Replace with:
+$result = $this->extensions->call('publish_form_entry_data', $result);
+
+
+INSTALLATION:
+1. Download and unzip the latest version
+2. Upload edit_alarm folder to your third_party folder (usually it's ./system/expressionengine/third_party)
+3. Enable Edit Alarm in the Control Panel (Settings if you like to customize)
+
+
+SUPPORT, SUGGESTIONS, AND BUGS:
+For support, suggestions, bug submissions, and comments, please e-mail thanh@vuongs.org and I will try my best to address your concerns.
+
+
+WIKI SPECIAL INSTRUCTIONS
+To use edit alerts in the wiki, you will need to make small additions to
+your wiki theme(s).
+
+You can edit your wiki themes at CP Home > Modules > Wiki > Wiki Themes
+
+Two variables are used:
+
+	{edit_alarm_message} - replaced by the edit alert message
+	{edit_alarm_css} - replaced by the CSS in the extension settings
+
+You can use these however you see fit.  One suggested way is to put the
+following within the <style> tag in your HTML <head> section:
+
+	#editAlarm {
+	{edit_alarm_css}
+	}
+
+And then in the page just within the primary content area, place the
+following.  In the Default theme this is the <div> with the id "article".
+In the Azure theme this is the <div> with the id "content".
+
+	{if edit_alarm}<div id="editAlarm">{edit_alarm_message}</div>{/if}
+
+Or for instance if you would prefer that edit alerts not ever be displayed
+when viewing an article:
+
+	{if edit_alarm && edit_article}<div id="editAlarm">{edit_alarm_message}</div>{/if}
+
+
+I STILL DON'T UNDERSTAND THE WIKI INSTRUCTIONS:
+And if you don't understand any of the wiki instructions, Here is what you do
+assuming you are using the default template:
+
+Edit 'Wiki Page' template and add the following inside your <head></head>:
+
+<style>
+	#editAlarm {
+	{edit_alarm_css}
+	}
+</style>
+
+Edit 'Wiki Edit' template and add the following right after {if can_edit}
+
+{if edit_alert}<div id="editAlert">{edit_alert_message}</div>{/if}
+
+
